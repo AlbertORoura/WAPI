@@ -57,19 +57,23 @@ module.exports = {
         }
         await gsapi.spreadsheets.values.update(updateOptions);
         res.status(201).json('data base restored');
+        next();
     },
 
-    index: async (req, res, next) => {
-        // const gsapi = google.sheets({ version: 'v4', auth: client });
-        // const opt = {
-        //     spreadsheetId: '1rBs1ltQvr5gCXrOPTXX-EDNiAZ5LRdVAbrwR5qwVZ4Y',
-        //     range: 'A1:E1000'
-        // };
-        // let woman = await gsapi.spreadsheets.values.get(opt);
-        // let response = convertArrayToObject(woman.data.values);
+    getAll: async (req, res, next) => {
+        const gsapi = google.sheets({ version: 'v4', auth: client });
+        const opt = {
+            spreadsheetId: '1rBs1ltQvr5gCXrOPTXX-EDNiAZ5LRdVAbrwR5qwVZ4Y',
+            range: 'A1:E1000'
+        };
+        let woman = await gsapi.spreadsheets.values.get(opt);
+        let response = convertArrayToObject(woman.data.values);
 
-        // res.status(200).json(response);
-        // return woman.data.values;
+        res.status(200).json(response);
+        next();
+        return woman.data.values;
+    },
+    index: async (req, res, next) => {
         res.send(`
         <html>
 
@@ -88,8 +92,8 @@ module.exports = {
         The endpoints are:
     </h2>
     <ul>
-        <li>GET /</li>
-        <li>GET by ID /:id</li>
+        <li>GET /api/women</li>
+        <li>GET by ID /api/woman/:id</li>
     </ul>
 
     <h2>If this project has been helpful to you, you can thank me by making a donation to any organization for the study
@@ -97,7 +101,8 @@ module.exports = {
 
 </body>
 </html>
-        `)
+        `);
+        next();
     },
 
     newUser: async (req, res, next) => { //POST
@@ -110,12 +115,29 @@ module.exports = {
         } else {
             res.json('data missing, please, provide name, firstName and lastName');
         }
+        next();
     },
 
     getUser: async (req, res, next) => { //GET:Id
-        // const {userId} = req.params;
-        // const user = await User.findById(userId);
-        res.status(200).json(user);
+        let { id } = req.params;
+
+        const gsapi = google.sheets({ version: 'v4', auth: client });
+        const opt = {
+            spreadsheetId: '1rBs1ltQvr5gCXrOPTXX-EDNiAZ5LRdVAbrwR5qwVZ4Y',
+            range: 'A1:E1000'
+        };
+        let woman = await gsapi.spreadsheets.values.get(opt);
+        let values = woman.data.values;
+        let response = convertArrayToObject(values);
+        let index = response.findIndex(w => w.id === id);
+
+        if (index >= 0) {
+            res.status(200).json(response[index]);
+        } else {
+            console.log('id not found');
+            res.status(404).json({ success: false });
+        }
+        next();
     },
     //POST
     replaceUser: async (req, res, next) => { //PUT
@@ -123,6 +145,7 @@ module.exports = {
         // const newUser = req.body;
         // const oldUser = await User.findByIdAndUpdate(userId,newUser)
         res.status(200).json({ success: true });
+        next();
     },
 
     updateUser: async (req, res, next) => { //PATCH
@@ -130,6 +153,7 @@ module.exports = {
         // const newUser = req.body;
         // const oldUser = await User.findByIdAndUpdate(userId,newUser)
         res.status(200).json({ success: true });
+        next();
     },
 
     deleteUser: async (req, res, next) => { //DELETE
@@ -160,6 +184,7 @@ module.exports = {
             console.log('id not found');
             res.status(404).json({ success: false });
         }
+        next();
     },
     notFound :  async (req, res, next) => { //DELETE
         res.status(404).json({error:'bad path'});
