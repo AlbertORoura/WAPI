@@ -1,4 +1,6 @@
 const { google } = require('googleapis');
+const { v4: uuidv4 } = require('uuid');
+
 const keys = require('../../keys.json');
 let backUpDB;
 //google connection
@@ -73,6 +75,7 @@ module.exports = {
         next();
         return woman.data.values;
     },
+
     index: async (req, res, next) => {
         res.send(`
         <html>
@@ -92,8 +95,13 @@ module.exports = {
         The endpoints are:
     </h2>
     <ul>
-        <li>GET /api/women</li>
-        <li>GET by ID /api/woman/:id</li>
+        <li>Get all database -> GET /api/women</li>
+        <li>Get 1 concrete register -> GET by ID /api/woman/:id</li>
+        <li>Create a new register in database -> POST /api/woman</li>
+        <li>Edit a concrete register in database -> PUT /api/woman/:id</li>
+        <li>Edit a concrete register in database -> PATCH /api/woman/:id</li>
+        <li>Delete 1 concrete register in database -> DELETE /api/woman/:id</li>
+        <li>Restore database -> PUT /api/woman/</li>
     </ul>
 
     <h2>If this project has been helpful to you, you can thank me by making a donation to any organization for the study
@@ -106,12 +114,30 @@ module.exports = {
     },
 
     newUser: async (req, res, next) => { //POST
-        const { name, firstName, lastName } = req.body;
-        if (name && firstName && lastName) {
-            const id = woman.length + 1;
-            const newWoman = { id, ...req.body }; //y si me mandan un id?
-            woman.push(newWoman);
-            res.status(201).json(woman);
+        const gsapi = google.sheets({ version: 'v4', auth: client });
+        const opt = {
+            spreadsheetId: '1rBs1ltQvr5gCXrOPTXX-EDNiAZ5LRdVAbrwR5qwVZ4Y',
+            range: 'A1:E1000'
+        };
+        let woman = await gsapi.spreadsheets.values.get(opt);
+
+
+        const { firstName, lastName, birthDate, history } = req.body;
+        if (firstName && lastName && birthDate && history) {
+            const id = uuidv4();
+            const newWoman = [id, req.body.firstName, req.body.lastName, req.body.birthDate,  req.body.history];
+            woman.data.values.push(newWoman);
+            
+
+            let updateOptions = {
+                spreadsheetId: '1rBs1ltQvr5gCXrOPTXX-EDNiAZ5LRdVAbrwR5qwVZ4Y',
+                range: 'A1:E' + woman.data.values.length,
+                valueInputOption: 'USER_ENTERED',
+                resource: { values: woman.data.values }
+            }
+            await gsapi.spreadsheets.values.update(updateOptions);
+            
+            res.status(201).json(id);
         } else {
             res.json('data missing, please, provide name, firstName and lastName');
         }
@@ -139,7 +165,7 @@ module.exports = {
         }
         next();
     },
-    //POST
+
     replaceUser: async (req, res, next) => { //PUT
         // const {userId} = req.params;
         // const newUser = req.body;
@@ -186,7 +212,7 @@ module.exports = {
         }
         next();
     },
-    notFound :  async (req, res, next) => { //DELETE
+    notFound :  async (req, res, next) => {
         res.status(404).json({error:'bad path'});
     }
 };
