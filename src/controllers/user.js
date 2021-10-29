@@ -86,7 +86,7 @@ module.exports = {
 
 <body>
     <h1>
-        The aim of that project is to provide an API for testing purposes. But developers are welcomed too ;)
+        The aim of that project is to provide an API for testing purposes.
     </h1>
 
     <h2>You can make a CRUD in database, and also you can restore it if needed.</h2>
