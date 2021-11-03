@@ -1,11 +1,16 @@
+
+require('./mongo')
+
 const morgan = require('morgan');
-// import morgan from 'morgan';
 const express = require('express');
-// import express from 'express';
 const app = express();
+
+
 
 const userRoutes = require('./routes/users');
 // import userRoutes from './routes/users';
+
+
 
 // settings
 app.set('port', process.env.PORT || 3001);
