@@ -1,19 +1,14 @@
-
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, './.env') })
 require('./mongo')
 
 const morgan = require('morgan');
 const express = require('express');
 const app = express();
-
-
-
 const userRoutes = require('./routes/users');
-// import userRoutes from './routes/users';
-
-
 
 // settings
-app.set('port', process.env.PORT || 3001);
+const PORT = process.env.PORT
 app.set('json spaces', 2);
 
 // middleware
@@ -29,6 +24,7 @@ app.use(require('./routes/users'))
 // error handlers
 
 // start the server
-app.listen(app.get('port'), function () {
-    console.log('server on port ', app.get('port'));
+
+app.listen(PORT, function () {
+    console.log(`server on port ${PORT}`);
 });

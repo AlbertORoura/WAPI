@@ -1,30 +1,6 @@
-const mongoose = require('mongoose');
-const { v4: uuidv4 } = require('uuid');
 require('../mongo')
 
 const Women = require('../Model/Women')
-
-
-let backUpDB;
-
-async function getBackup() {
-    console.log('creando backUp');
-
-}
-
-const convertArrayToObject = (array) => {
-    let dataToImport = [];
-    for (var i = 1; i < array.length; i++) {
-        var myObj = new Object();
-        for (var z = 0; z < array[0].length; z++) {
-            var a = array[0][z];
-            var b = array[i][z];
-            myObj[a] = b;
-        }
-        dataToImport.push(myObj);
-    }
-    return dataToImport;
-};
 
 module.exports = {
 
