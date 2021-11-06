@@ -1,6 +1,8 @@
 require('../mongo')
 
 const Women = require('../Model/Women')
+const bcrypt = require('bcrypt')
+const User = require('../Model/User')
 
 module.exports = {
 
@@ -10,12 +12,9 @@ module.exports = {
         next();
     },
 
-    getAll: (req, res, next) => {
-        Women.find({}).then(result => {
-            res.status(200).json(result)
-        }).catch(err => {
-            next(err);
-        })
+    getAll: async (req, res, next) => {
+        const women = await Women.find({})
+        res.status(200).json(women)
     },
 
     index: (req, res, next) => {
@@ -55,7 +54,7 @@ module.exports = {
         next();
     },
 
-    newUser: async (req, res, next) => { //POST
+    newWoman: async (req, res, next) => { //POST
         const { firstName, lastName, birthDate, history } = req.body;
 
         if (firstName && lastName && birthDate && history) {
@@ -65,24 +64,25 @@ module.exports = {
                 birthDate: req.body.birthDate,
                 history: req.body.history
             })
-            let newId = await newWoman.save().then(saveWoman => {
-                return saveWoman._id
-            })
-            res.status(201).json(newId);
+            try {
+                let newId = await newWoman.save()
+                res.status(201).json(newId._id);
+            } catch (error) {
+                next(error);
+            }
         } else {
-            res.status(400).json('data missing, please, provide firstName, lastName, birthDate and history');
+            res.status(400).json({success: false, error: 'data missing, please, provide firstName, lastName, birthDate and history'});
         }
-        next();
     },
 
-    getUser: (req, res, next) => { //GET:Id
+    getWoman: (req, res, next) => { //GET:Id
         let { id } = req.params;
 
         Women.findById(id).then(woman => {
             if (woman != undefined) {
                 res.status(200).json(woman);
             } else {
-                res.status(404).json({ success: 'id not found' });
+                res.status(404).json({ success: false, error: 'id not found' });
             }
         }).catch(err => {
             console.log('entra en el catch')
@@ -90,7 +90,7 @@ module.exports = {
         })
     },
 
-    replaceUser: (req, res, next) => { //PUT
+    replaceWoman: (req, res, next) => { //PUT
         const { id } = req.params
         const newWomaninfo = {
             firstName: req.body.firstName,
@@ -107,7 +107,7 @@ module.exports = {
             })
     },
 
-    updateUser: (req, res, next) => { //PATCH
+    updateWoman: (req, res, next) => { //PATCH
         const { id } = req.params
         const newWomaninfo = {
             firstName: req.body.firstName,
@@ -124,18 +124,39 @@ module.exports = {
             })
     },
 
-    deleteUser: (req, res, next) => { //DELETEE
+    deleteWoman: async (req, res, next) => { //DELETEE
         let { id } = req.params;
 
-        Women.findByIdAndDelete(id).then(woman => {
-            if (woman != undefined) {
-                res.status(204).json(woman);
+        try {
+            if (id.match(/^[0-9a-fA-F]{24}$/)) {
+                const woman = await Women.findByIdAndDelete(id)
+                console.log(woman)
+                if (!woman) return res.status(404).json({ success: false, error: 'id not found' });
+                return res.status(204).json(woman);
             } else {
-                res.status(404).json({ success: 'id not found' });
+                res.status(404).json({ success: false, error: 'does not match id format' });
             }
-        }).catch(err => {
-            next(err);
+        } catch (err) {
+            next(err)
+        }
+    },
+
+    newUser: async (req, res, next) => { //POST
+        const { body } = req
+        const { username, name, password } = body
+
+        const saltRounds = 10
+        const passordHash = await bcrypt.hash(password, saltRounds)
+
+        const user = new User({
+            username,
+            name,
+            passordHash
         })
+
+        const savedUser = await user.save()
+
+        res.json(savedUser)
     },
 
     notFound: (err, req, res, next) => {
@@ -145,7 +166,7 @@ module.exports = {
         if (err.name === 'CastError') {
             res.status(400)
         } else {
-            res.status(404).json({ error: 'bad path' });
+            res.status(404).json({success: false, error: 'bad path' });
         }
     }
 };

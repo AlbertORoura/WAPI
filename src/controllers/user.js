@@ -1,22 +1,26 @@
-const bcrypt = require('bcrypt')
-const { request, response } = require('express')
+const { req, res } = require('express')
+require('../mongo')
+
 const userRoutes = require('express-promise-router')()
+const bcrypt = require('bcrypt')
 const User = require('../Model/Users')
 
-userRoutes.post('/', async (request, response) ={
-    const {body} = request
-    const {username, name, password} = body
+module.exports = {
+    newUser: async (req, res, next) => { //POST
+        const { body } = req
+        const { username, name, password } = body
 
-    const saltRounds = 10
-    const passordHash = await bcrypt.hash(password, saltRounds)
+        const saltRounds = 10
+        const passordHash = await bcrypt.hash(password, saltRounds)
 
-    const user = new User({
-        username,
-        name,
-        passordHash
-    })
+        const user = new User({
+            username,
+            name,
+            passordHash
+        })
 
-    const savedUser = await user.save()
+        const savedUser = await user.save()
 
-    response.json(savedUser)
-})
+        res.json(savedUser)
+    }
+}

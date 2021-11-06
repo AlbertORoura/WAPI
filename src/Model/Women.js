@@ -5,7 +5,11 @@ const womenSchema = new Schema({
     firstName: String,
     lastName: String,
     birthDate: String,
-    history: String
+    history: String,
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }
 })
 
 womenSchema.set('toJSON', {

@@ -5,7 +5,8 @@ require('./mongo')
 const morgan = require('morgan');
 const express = require('express');
 const app = express();
-const userRoutes = require('./routes/users');
+const routes = require('./routes/routes');
+
 
 // settings
 const PORT = process.env.PORT
@@ -16,8 +17,8 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // routes
-app.use('./users', userRoutes);
-app.use(require('./routes/users'))
+app.use('./routes', routes);
+app.use(require('./routes/routes'))
 
 // static files
 
