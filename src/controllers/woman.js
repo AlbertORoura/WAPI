@@ -13,8 +13,18 @@ module.exports = {
     },
 
     getAll: async (req, res, next) => {
-        const women = await Women.find({})
+        const women = await Women.find({}).populate('userId')
         res.status(200).json(women)
+    },
+
+    getAllUsers: async (req, res, next) => {
+        const users = await User.find({}).populate('womenId',{
+            firstName: 1,
+            lastName: 1,
+            birthDate: 1,
+            history: 1
+        })
+        res.status(200).json(users)
     },
 
     index: (req, res, next) => {
@@ -55,23 +65,29 @@ module.exports = {
     },
 
     newWoman: async (req, res, next) => { //POST
-        const { firstName, lastName, birthDate, history } = req.body;
-
+        const { firstName, lastName, birthDate, history, userId } = req.body;
+        const user = await User.findById(userId)
+        console.log(user)
         if (firstName && lastName && birthDate && history) {
             const newWoman = new Women({
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 birthDate: req.body.birthDate,
-                history: req.body.history
+                history: req.body.history,
+                userId: user._id
             })
+            console.log(newWoman)
             try {
-                let newId = await newWoman.save()
-                res.status(201).json(newId._id);
+                let newW = await newWoman.save()
+                user.womenId.push(newW._id)
+                await user.save()
+                console.log(user)
+                res.status(201).json(newW._id)
             } catch (error) {
                 next(error);
             }
         } else {
-            res.status(400).json({success: false, error: 'data missing, please, provide firstName, lastName, birthDate and history'});
+            res.status(400).json({ success: false, error: 'data missing, please, provide firstName, lastName, birthDate and history' });
         }
     },
 
@@ -166,7 +182,7 @@ module.exports = {
         if (err.name === 'CastError') {
             res.status(400)
         } else {
-            res.status(404).json({success: false, error: 'bad path' });
+            res.status(404).json({ success: false, error: 'bad path' });
         }
     }
 };

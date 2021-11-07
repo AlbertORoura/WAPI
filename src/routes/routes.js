@@ -3,6 +3,7 @@ const router = require('express-promise-router')();
 const {
     index,
     getAll,
+    getAllUsers,
     newWoman,
     restore,
     getWoman,
@@ -23,6 +24,7 @@ const {
 
 router.get('/', index);
 router.get('/api/women', getAll);
+router.get('/api/users', getAllUsers);
 router.post('/api/woman', newWoman);
 router.post('/api/user', newUser);
 //router.post('/restore', restore);

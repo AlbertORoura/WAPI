@@ -6,7 +6,7 @@ const userSchema = new Schema({
     passordHash: String,
     womenId: [{
         type: Schema.Types.ObjectId,
-        ref: 'Women'
+        ref: 'Woman'
     }]
 });
 
