@@ -1,31 +1,10 @@
 require('../mongo')
-
+const jwt = require('jsonwebtoken')
 const Women = require('../Model/Women')
 const bcrypt = require('bcrypt')
 const User = require('../Model/User')
 
 module.exports = {
-
-    restore: (req, res, next) => {
-
-        //res.status(201).json('data base restored');
-        next();
-    },
-
-    getAll: async (req, res, next) => {
-        const women = await Women.find({}).populate('userId')
-        res.status(200).json(women)
-    },
-
-    getAllUsers: async (req, res, next) => {
-        const users = await User.find({}).populate('womenId',{
-            firstName: 1,
-            lastName: 1,
-            birthDate: 1,
-            history: 1
-        })
-        res.status(200).json(users)
-    },
 
     index: (req, res, next) => {
         res.send(`
@@ -64,19 +43,64 @@ module.exports = {
         next();
     },
 
+    login: async (req, res, next) => {
+        const { body } = req;
+        const { username, password } = body
+
+        const user = await User.findOne({ username })
+
+        const passwordCorrect = user === null ? false : await bcrypt.compare(password, user.passwordHash)
+
+        if (!(user && passwordCorrect)) {
+            res.status(401).json({
+                error: 'invalid user or password'
+            })
+        } else {
+
+            const userForToken = {
+                id: user._id,
+                username: user.username
+            }
+
+            const token = jwt.sign(userForToken, process.env.SECRET)
+
+            res.send({
+                name: user.name,
+                username: user.username,
+                token: token
+            })
+        }
+    },
+
+    getAll: async (req, res, next) => {
+        const women = await Women.find({}).populate('userId')
+        res.status(200).json(women)
+    },
+
+    getAllUsers: async (req, res, next) => {
+        const users = await User.find({}).populate('womenId', {
+            firstName: 1,
+            lastName: 1,
+            birthDate: 1,
+            history: 1
+        })
+        res.status(200).json(users)
+    },
+
     newWoman: async (req, res, next) => { //POST
-        const { firstName, lastName, birthDate, history, userId } = req.body;
-        const user = await User.findById(userId)
-        console.log(user)
+        const { firstName, lastName, birthDate, history } = req.body;
+        
         if (firstName && lastName && birthDate && history) {
             const newWoman = new Women({
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 birthDate: req.body.birthDate,
-                history: req.body.history,
-                userId: user._id
+                history: req.body.history
             })
-            console.log(newWoman)
+
+            const {userId} = req
+            const user = await User.findById(userId)
+
             try {
                 let newW = await newWoman.save()
                 user.womenId.push(newW._id)
@@ -89,6 +113,12 @@ module.exports = {
         } else {
             res.status(400).json({ success: false, error: 'data missing, please, provide firstName, lastName, birthDate and history' });
         }
+    },
+
+    restore: (req, res, next) => {
+
+        //res.status(201).json('data base restored');
+        next();
     },
 
     getWoman: (req, res, next) => { //GET:Id
@@ -157,17 +187,17 @@ module.exports = {
         }
     },
 
-    newUser: async (req, res, next) => { //POST
+    newUser: async (req, res, next) => { //POST TODO CONTROL DE USUARIOS REPETIDOS
         const { body } = req
         const { username, name, password } = body
 
         const saltRounds = 10
-        const passordHash = await bcrypt.hash(password, saltRounds)
+        const passwordHash = await bcrypt.hash(password, saltRounds)
 
         const user = new User({
             username,
             name,
-            passordHash
+            passwordHash
         })
 
         const savedUser = await user.save()

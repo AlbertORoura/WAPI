@@ -11,7 +11,8 @@ mongoose.connect(connectionString)
 })
 
 //creo que no funciona la parte de desconectar
-process.on('uncaughtException', () => {
+process.on('uncaughtException', (error) => {
+    console.error(error)
     console.log('disconected')
-    mongoose.connection.disconnect;
+    mongoose.disconnect();
 })
