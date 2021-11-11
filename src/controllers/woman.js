@@ -21,6 +21,8 @@ module.exports = {
 
     <h2>You can make a CRUD in database, and also you can restore it if needed.</h2>
 
+    <h2>Please, find below the <a href="https://www.google.es" target="_blank">SWAGER</a> link for documentation.</h2>
+
     <h2>
         The endpoints are:
     </h2>
