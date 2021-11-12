@@ -3,91 +3,90 @@
       "firstName": "Grace",
       "lastName": "Murray Hopper",
       "birthDate": "09/10/1906",
-      "history": "was an American computer scientist and United States Navy rear admiral. One of the first programmers of the Harvard Mark I computer, she was a pioneer of computer programming who invented one of the first linkers. Hopper was the first to devise the theory of machine-independent programming languages, and the FLOW-MATIC programming language she created using this theory was later extended to create COBOL, an early high-level programming language still in use today.",
-      "id": "61815a3c08287416da505450"
+      "history": "was an American computer scientist and United States Navy rear admiral. One of the first programmers of the Harvard Mark I computer, she was a pioneer of computer programming who invented one of the first linkers. Hopper was the first to devise the theory of machine-independent programming languages, and the FLOW-MATIC programming language she created using this theory was later extended to create COBOL, an early high-level programming language still in use today."
   },
   {
       "firstName": "Hipatia",
       "lastName": "de Alejandría",
       "birthDate": "360",
-      "history": "was a Greek Neoplatonist philosopher, astronomer, and mathematician, who lived in Alexandria, Egypt, then part of the Eastern Roman Empire. She was a prominent thinker of the Neoplatonic school in Alexandria where she taught philosophy and astronomy. Although preceded by Pandrosion, another Alexandrine female mathematician, she is the first female mathematician whose life is reasonably well recorded",
-      "id": "61828ed3d6dd28e1b73338cd"
+      "history": "was a Greek Neoplatonist philosopher, astronomer, and mathematician, who lived in Alexandria, Egypt, then part of the Eastern Roman Empire. She was a prominent thinker of the Neoplatonic school in Alexandria where she taught philosophy and astronomy. Although preceded by Pandrosion, another Alexandrine female mathematician, she is the first female mathematician whose life is reasonably well recorded"
   },
   {
       "firstName": "Sophie",
       "lastName": "Germain",
       "birthDate": "01/05/1776",
-      "history": "was a French mathematician, physicist, and philosopher. Despite initial opposition from her parents and difficulties presented by society, she gained education from books in her father's library, including ones by Leonhard Euler, and from correspondence with famous mathematicians such as Lagrange, Legendre, and Gauss (under the pseudonym of «Monsieur LeBlanc»). One of the pioneers of elasticity theory, she won the grand prize from the Paris Academy of Sciences for her essay on the subject. Her work on Fermat's Last Theorem provided a foundation for mathematicians exploring the subject for hundreds of years after.",
-      "id": "61828f9f06fb2cb5adff3524"
+      "history": "was a French mathematician, physicist, and philosopher. Despite initial opposition from her parents and difficulties presented by society, she gained education from books in her father's library, including ones by Leonhard Euler, and from correspondence with famous mathematicians such as Lagrange, Legendre, and Gauss (under the pseudonym of «Monsieur LeBlanc»). One of the pioneers of elasticity theory, she won the grand prize from the Paris Academy of Sciences for her essay on the subject. Her work on Fermat's Last Theorem provided a foundation for mathematicians exploring the subject for hundreds of years after."
   },
   {
       "firstName": "Marie",
       "lastName": "Curie",
       "birthDate": "04/07/1934",
-      "history": "was a Polish and naturalized-French physicist and chemist who conducted pioneering research on radioactivity. She was the first woman to win a Nobel Prize, the first person and the only woman to win the Nobel Prize twice, and the only person to win the Nobel Prize in two scientific fields.",
-      "id": "61828fe5cc683c6d54a1c424"
+      "history": "was a Polish and naturalized-French physicist and chemist who conducted pioneering research on radioactivity. She was the first woman to win a Nobel Prize, the first person and the only woman to win the Nobel Prize twice, and the only person to win the Nobel Prize in two scientific fields."
   },
   {
       "firstName": "Ángela",
       "lastName": "Ruiz Robles",
       "birthDate": "28/03/1895",
-      "history": "was a Spanish teacher, writer, pioneer and inventor of the mechanical precursor to the electronic book. In 1949, Ruiz was awarded Spanish patent 190,698 for the \"Mechanical Encyclopedia\" (Spanish: la Enciclopedia Mecánica).",
-      "id": "618290b0ab0e3f4510d8fff7"
+      "history": "was a Spanish teacher, writer, pioneer and inventor of the mechanical precursor to the electronic book. In 1949, Ruiz was awarded Spanish patent 190,698 for the \"Mechanical Encyclopedia\" (Spanish: la Enciclopedia Mecánica)."
   },
   {
       "firstName": "Chien-Chiung",
       "lastName": "Wu",
       "birthDate": "31/05/1912",
-      "history": "was a Chinese-American particle and experimental physicist who made significant contributions in the fields of nuclear and particle physics. Wu worked on the Manhattan Project, where she helped develop the process for separating uranium into uranium-235 and uranium-238 isotopes by gaseous diffusion. She is best known for conducting the Wu experiment, which proved that parity is not conserved.",
-      "id": "618291292b0d0eb3a3510a97"
+      "history": "was a Chinese-American particle and experimental physicist who made significant contributions in the fields of nuclear and particle physics. Wu worked on the Manhattan Project, where she helped develop the process for separating uranium into uranium-235 and uranium-238 isotopes by gaseous diffusion. She is best known for conducting the Wu experiment, which proved that parity is not conserved."
   },
   {
       "firstName": "Katherine",
       "lastName": "Johnson",
       "birthDate": "26/08/1918",
-      "history": "was an American mathematician whose calculations of orbital mechanics as a NASA employee were critical to the success of the first and subsequent U.S. crewed spaceflights. During her 33-year career at NASA and its predecessor, she earned a reputation for mastering complex manual calculations and helped pioneer the use of computers to perform the tasks.",
-      "id": "618291601d15aee1368d34dd"
+      "history": "was an American mathematician whose calculations of orbital mechanics as a NASA employee were critical to the success of the first and subsequent U.S. crewed spaceflights. During her 33-year career at NASA and its predecessor, she earned a reputation for mastering complex manual calculations and helped pioneer the use of computers to perform the tasks."
   },
   {
       "firstName": "Lise",
       "lastName": "Meitner",
       "birthDate": "07/11/1878",
-      "history": "was a leading Austrian-Swedish physicist who was one of those responsible for the discovery of the element protactinium and nuclear fission. While working at the Kaiser Wilhelm Institute on radioactivity, she discovered the radioactive isotope protactinium-231 in 1917. In 1938, Meitner and her nephew, the physicist Otto Robert Frisch, discovered nuclear fission. She was praised by Albert Einstein as the \"German Marie Curie\".",
-      "id": "618291ca0caf70339b962391"
+      "history": "was a leading Austrian-Swedish physicist who was one of those responsible for the discovery of the element protactinium and nuclear fission. While working at the Kaiser Wilhelm Institute on radioactivity, she discovered the radioactive isotope protactinium-231 in 1917. In 1938, Meitner and her nephew, the physicist Otto Robert Frisch, discovered nuclear fission. She was praised by Albert Einstein as the \"German Marie Curie\"."
   },
   {
       "firstName": "Emmy",
       "lastName": "Noether",
       "birthDate": "23/03/1882",
-      "history": "was a German mathematician who made many important contributions to abstract algebra. She discovered Noether's theorem, which is fundamental in mathematical physics. She was described by Pavel Alexandrov, Albert Einstein, Jean Dieudonné, Hermann Weyl and Norbert Wiener as the most important woman in the history of mathematics. As one of the leading mathematicians of her time, she developed some theories of rings, fields, and algebras. In physics, Noether's theorem explains the connection between symmetry and conservation laws.",
-      "id": "6182921caea338775732824f"
+      "history": "was a German mathematician who made many important contributions to abstract algebra. She discovered Noether's theorem, which is fundamental in mathematical physics. She was described by Pavel Alexandrov, Albert Einstein, Jean Dieudonné, Hermann Weyl and Norbert Wiener as the most important woman in the history of mathematics. As one of the leading mathematicians of her time, she developed some theories of rings, fields, and algebras. In physics, Noether's theorem explains the connection between symmetry and conservation laws."
   },
   {
       "firstName": "Barbara",
       "lastName": "McClintock",
       "birthDate": "16/06/1902",
-      "history": "was an American scientist and cytogeneticist who was awarded the 1983 Nobel Prize in Physiology or Medicine. McClintock received her PhD in botany from Cornell University in 1927. There she started her career as the leader in the development of maize cytogenetics, the focus of her research for the rest of her life.From the late 1920s, McClintock studied chromosomes and how they change during reproduction in maize.She developed the technique for visualizing Maize chromosomes and used microscopic analysis to demonstrate many fundamental genetic ideas.One of those ideas was the notion of genetic recombination by crossing - over during meiosis—a mechanism by which chromosomes exchange information.She produced the first genetic map for maize, linking regions of the chromosome to physical traits.She demonstrated the role of the telomere and centromere, regions of the chromosome that are important in the conservation of genetic information.",
-      "id": "6182acd69ef700c6f07f5a41"
+      "history": "was an American scientist and cytogeneticist who was awarded the 1983 Nobel Prize in Physiology or Medicine. McClintock received her PhD in botany from Cornell University in 1927. There she started her career as the leader in the development of maize cytogenetics, the focus of her research for the rest of her life.From the late 1920s, McClintock studied chromosomes and how they change during reproduction in maize.She developed the technique for visualizing Maize chromosomes and used microscopic analysis to demonstrate many fundamental genetic ideas.One of those ideas was the notion of genetic recombination by crossing - over during meiosis—a mechanism by which chromosomes exchange information.She produced the first genetic map for maize, linking regions of the chromosome to physical traits.She demonstrated the role of the telomere and centromere, regions of the chromosome that are important in the conservation of genetic information."
   },
   {
       "firstName": "Rosalind",
       "lastName": "Franklin",
       "birthDate": "25/07/1920",
-      "history": "was an English chemist and X-ray crystallographer whose work was central to the understanding of the molecular structures of DNA (deoxyribonucleic acid), RNA (ribonucleic acid), viruses, coal, and graphite. Although her works on coal and viruses were appreciated in her lifetime, her contributions to the discovery of the structure of DNA were largely unrecognized during her life, for which she has been variously referred to as the \"wronged heroine\", the \"dark lady of DNA\", the \"forgotten heroine\", a \"feminist icon\", and the \"Sylvia Plath of molecular biology\".",
-      "id": "6182c1ba0668c87ec20f8f05"
+      "history": "was an English chemist and X-ray crystallographer whose work was central to the understanding of the molecular structures of DNA (deoxyribonucleic acid), RNA (ribonucleic acid), viruses, coal, and graphite. Although her works on coal and viruses were appreciated in her lifetime, her contributions to the discovery of the structure of DNA were largely unrecognized during her life, for which she has been variously referred to as the \"wronged heroine\", the \"dark lady of DNA\", the \"forgotten heroine\", a \"feminist icon\", and the \"Sylvia Plath of molecular biology\"."
   },
   {
       "firstName": "Jane",
       "lastName": "Goodall",
       "birthDate": "03/04/1934",
-      "history": "is an English primatologist and anthropologist. Considered to be the world's foremost expert on chimpanzees, Goodall is best known for her 60-year study of social and family interactions of wild chimpanzees since she first went to Gombe Stream National Park in Tanzania in 1960, where she witnessed human-like behaviours amongst chimpanzees, including armed conflict.",
-      "id": "6182ff7d7a75362be8886c8b"
+      "history": "is an English primatologist and anthropologist. Considered to be the world's foremost expert on chimpanzees, Goodall is best known for her 60-year study of social and family interactions of wild chimpanzees since she first went to Gombe Stream National Park in Tanzania in 1960, where she witnessed human-like behaviours amongst chimpanzees, including armed conflict."
   },
   {
       "firstName": "Donna Theo",
       "lastName": "Strickland",
       "birthDate": "27/05/1959",
-      "history": "is a Canadian optical physicist and pioneer in the field of pulsed lasers. She was awarded the Nobel Prize in Physics in 2018, together with Gérard Mourou, for the practical implementation of chirped pulse amplification. She is a professor at the University of Waterloo in Ontario, Canada.",
-      "id": "61830fac25c4761fedebb084"
+      "history": "is a Canadian optical physicist and pioneer in the field of pulsed lasers. She was awarded the Nobel Prize in Physics in 2018, together with Gérard Mourou, for the practical implementation of chirped pulse amplification. She is a professor at the University of Waterloo in Ontario, Canada."
+  },
+  {
+      "firstName": "Jessica",
+      "lastName": "Wade",
+      "birthDate": "1988",
+      "history": "is a British physicist in the Blackett Laboratory at Imperial College London specialising in Raman spectroscopy. Her research investigates polymer-based organic light emitting diodes (OLEDs). Her public engagement work in science, technology, engineering, and mathematics (STEM) champions women in physics as well as tackling systemic biases such as gender bias on Wikipedia and racial bias on Wikipedia."
+  },
+  {
+      "firstName": "Augusta",
+      "lastName": "Ada King",
+      "birthDate": "10/10/1815",
+      "history": "was an English mathematician and writer, chiefly known for her work on Charles Babbage's proposed mechanical general-purpose computer, the Analytical Engine. She was the first to recognise that the machine had applications beyond pure calculation, and to have published the first algorithm intended to be carried out by such a machine. As a result, she is often regarded as the first computer programmer."
   }
 ]

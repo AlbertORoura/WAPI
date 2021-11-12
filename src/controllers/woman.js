@@ -3,6 +3,29 @@ const jwt = require('jsonwebtoken')
 const Women = require('../Model/Women')
 const bcrypt = require('bcrypt')
 const User = require('../Model/User')
+const womenLocalDB = require('../women.json')
+
+async function restore(u) {
+    const user = await User.findById(u)
+
+    for(let womanDB in womenLocalDB) {
+        const newWoman = new Women({
+            firstName: womenLocalDB[womanDB].firstName,
+            lastName: womenLocalDB[womanDB].lastName,
+            birthDate: womenLocalDB[womanDB].birthDate,
+            history: womenLocalDB[womanDB].history,
+            userId: u
+        })
+
+        try {
+            let newW = await newWoman.save()
+            user.womenId.push(newW._id)
+            await user.save()
+        } catch (error) {
+            console.log(error);
+        }
+    };
+}
 
 module.exports = {
 
@@ -65,7 +88,7 @@ module.exports = {
             }
 
             const token = jwt.sign(userForToken, process.env.SECRET)
-
+            await restore(user._id)
             res.send({
                 name: user.name,
                 username: user.username,
@@ -75,7 +98,8 @@ module.exports = {
     },
 
     getAll: async (req, res, next) => {
-        const women = await Women.find({}).populate('userId')
+        const { userId } = req
+        const women = await Women.find({ userId }).populate('userId')
         res.status(200).json(women)
     },
 
@@ -91,23 +115,23 @@ module.exports = {
 
     newWoman: async (req, res, next) => { //POST
         const { firstName, lastName, birthDate, history } = req.body;
-        
+
         if (firstName && lastName && birthDate && history) {
+            const { userId } = req
             const newWoman = new Women({
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 birthDate: req.body.birthDate,
-                history: req.body.history
+                history: req.body.history,
+                userId: userId
             })
 
-            const {userId} = req
             const user = await User.findById(userId)
 
             try {
                 let newW = await newWoman.save()
                 user.womenId.push(newW._id)
                 await user.save()
-                console.log(user)
                 res.status(201).json(newW._id)
             } catch (error) {
                 next(error);
@@ -133,8 +157,7 @@ module.exports = {
                 res.status(404).json({ success: false, error: 'id not found' });
             }
         }).catch(err => {
-            console.log('entra en el catch')
-            next(err); //TODO: next(err)
+            next(err);
         })
     },
 
@@ -163,7 +186,7 @@ module.exports = {
             birthDate: req.body.birthDate,
             history: req.body.history
         }
-        console.log(newWomaninfo)
+
         Women.findByIdAndUpdate(id, newWomaninfo, { new: true })
             .then(result => {
                 res.status(200).json(result);
@@ -178,7 +201,6 @@ module.exports = {
         try {
             if (id.match(/^[0-9a-fA-F]{24}$/)) {
                 const woman = await Women.findByIdAndDelete(id)
-                console.log(woman)
                 if (!woman) return res.status(404).json({ success: false, error: 'id not found' });
                 return res.status(204).json(woman);
             } else {
@@ -204,7 +226,10 @@ module.exports = {
 
         const savedUser = await user.save()
 
-        res.json(savedUser)
+        res.status(201).send({
+            name: savedUser.name,
+            username: savedUser.username
+        })
     },
 
     notFound: (err, req, res, next) => {
