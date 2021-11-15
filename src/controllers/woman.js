@@ -44,7 +44,7 @@ module.exports = {
 
     <h2>You can make a CRUD in database, and also you can restore it if needed.</h2>
 
-    <h2>Please, find below the <a href="https://www.google.es" target="_blank">SWAGER</a> link for documentation.</h2>
+    <h2>Please, find below the <a href="https://app.swaggerhub.com/apis/AlbertQA/WAPI/v1.0" target="_blank">SWAGER</a> link for documentation.</h2>
 
     <h2>
         The endpoints are:
@@ -141,9 +141,17 @@ module.exports = {
         }
     },
 
-    restore: (req, res, next) => {
-
-        //res.status(201).json('data base restored');
+    restore: async (req, res, next) => {
+        const { userId } = req
+        //borrado de todas las entradas asociadas a ese usuario
+        const user = await User.find({}).populate('womenId')
+        user.womenId = null
+        // ?? is not a function...  await user.save()
+        const registersDeleted = await Women.find({ userId }).deleteMany({ userId })
+        console.log(registersDeleted)
+        //volcado de la base de datos para ese usuario
+        restore(userId)
+        res.status(201).json('data base restored');
         next();
     },
 

@@ -22,8 +22,8 @@ router.get('/api/women', userExtractor, getAll);
 router.get('/api/users', getAllUsers);
 router.post('/api/woman', userExtractor, newWoman);
 router.post('/api/user', newUser);
-//router.post('/restore', restore);
-router.put('/api/woman', userExtractor, restore);
+router.post('/api/restore', userExtractor, restore);
+//router.post('/api/woman', userExtractor, restore);
 router.get('/api/woman/:id', userExtractor, getWoman);
 router.put('/api/woman/:id', userExtractor, replaceWoman);
 router.patch('/api/woman/:id', userExtractor, updateWoman)
