@@ -8,7 +8,7 @@ const womenLocalDB = require('../women.json')
 async function restore(u) {
     const user = await User.findById(u)
 
-    for(let womanDB in womenLocalDB) {
+    for (let womanDB in womenLocalDB) {
         const newWoman = new Women({
             firstName: womenLocalDB[womanDB].firstName,
             lastName: womenLocalDB[womanDB].lastName,
@@ -44,7 +44,7 @@ module.exports = {
 
     <h2>You can make a CRUD in database, and also you can restore it if needed.</h2>
 
-    <h2>Please, find below the <a href="https://app.swaggerhub.com/apis/AlbertQA/WAPI/v1.0" target="_blank">SWAGER</a> link for documentation.</h2>
+    <h2>Please, find below the <a href="https://app.swaggerhub.com/apis-docs/AlbertQA/WAPI/v1.0" target="_blank">SWAGER</a> link for documentation.</h2>
 
     <h2>
         The endpoints are:
@@ -144,12 +144,9 @@ module.exports = {
     restore: async (req, res, next) => {
         const { userId } = req
         //borrado de todas las entradas asociadas a ese usuario
-        const user = await User.find({}).populate('womenId')
-        user.womenId = null
-        // ?? is not a function...  await user.save()
+        const userEdited = await User.findByIdAndUpdate(userId, womenId = [])
         const registersDeleted = await Women.find({ userId }).deleteMany({ userId })
-        console.log(registersDeleted)
-        //volcado de la base de datos para ese usuario
+        //console.log(registersDeleted,userEdited)
         restore(userId)
         res.status(201).json('data base restored');
         next();
@@ -169,21 +166,24 @@ module.exports = {
         })
     },
 
-    replaceWoman: (req, res, next) => { //PUT
+    replaceWoman: async (req, res, next) => { //PUT
         const { id } = req.params
-        const newWomaninfo = {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            birthDate: req.body.birthDate,
-            history: req.body.history
-        }
 
-        Women.findByIdAndUpdate(id, newWomaninfo, { new: true })
-            .then(result => {
-                res.status(200).json(result);
-            }).catch(err => {
-                next(err);
-            })
+        var womanOld = req.body
+        
+        try {
+            let n = await Women.findByIdAndUpdate(id, womanOld).setOptions({new: true, overwrite: true})
+            
+            if (n) {
+                var womanNew = await Women.findById(id)
+                res.status(201).json(womanNew)
+            } else {
+                res.status(400).json({ success: false, error: 'register not found or founded more than one resource' })
+            }
+        } catch (error) {
+            res.status(400).json({ success: false, error: 'data missing, please, provide firstName, lastName, birthDate and history' });
+            next(error);
+        }
     },
 
     updateWoman: (req, res, next) => { //PATCH
@@ -203,7 +203,7 @@ module.exports = {
             })
     },
 
-    deleteWoman: async (req, res, next) => { //DELETEE
+    deleteWoman: async (req, res, next) => { //DELETE
         let { id } = req.params;
 
         try {
